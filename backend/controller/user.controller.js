@@ -2,20 +2,24 @@ const { UserModel } = require("../models/user.model");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
+//SignUP
+
 const signup = async (req, res) => {
   const { email, password } = req.body;
   try {
     const user = await UserModel.find({ email });
+    //check user is already created account or not
     if (user.length !== 0) {
-      res.send({ msg: `user already registered` });
+      res.send({ message: `user already registered` });
     } else {
-      bcrypt.hash(password, 1, (err, hash) => {
+      //First hashing then save
+      bcrypt.hash(password, 1, async (err, hash) => {
         if (err) {
           res.status(400).send({ error: err.message });
         } else {
           const user = new UserModel({ ...req.body, password: hash });
-          user.save();
-          res.status(200).send({ msg: `user registered successfully` });
+          await user.save();
+          res.status(200).send({ message: `New User Has Been Registered` });
         }
       });
     }
@@ -24,36 +28,40 @@ const signup = async (req, res) => {
   }
 };
 
+//Login
+//Login
+//Login
+//Login
+//Login
+
 const login = async (req, res) => {
   const { email, password } = req.body;
+
   try {
-    const arr = await UserModel.find({ email });
-    if (arr.length === 0) {
-      res.status(400).send({
-        msg: `Unable find user with given email, please login first`,
-      });
-    } else {
-      let ary = arr.map((el) => (el.password ? el.password : null));
-      let userid = arr.map((el) => (el._id ? el._id : null));
-      bcrypt.compare(password, ary[0], (err, result) => {
-        if (err) {
-          res.status(400).send({ error: err.message });
-        } else if (result) {
-          res.status(200).send({
-            msg: `User logged in successfully`,
-            token: jwt.sign({ userId: userid[0] }, "swami", {
-              expiresIn: "1h",
-            }),
-          });
-        } else {
-          res.status(400).send({
-            error: `Invalid password, please enter a correct password`,
-          });
-        }
+    const user = await UserModel.findOne({ email });
+    if (!user) {
+      return res.status(401).send({
+        message: "Invalid email or password",
       });
     }
+
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      return res.status(401).send({
+        message: "Invalid email or password",
+      });
+    }
+
+    const token = jwt.sign({ userId: user._id }, "amaze", { expiresIn: "1h" });
+    res.status(200).send({
+      message: "User logged in successfully",
+      token,
+    });
   } catch (error) {
-    res.status(400).send({ error: error.message });
+    console.error(error);
+    res.status(500).send({
+      message: "Something went wrong. Please try again later.",
+    });
   }
 };
 
