@@ -6,48 +6,36 @@ import {
   Text,
   HStack,
   useToast,
-
-
 } from "@chakra-ui/react";
-import { useEffect,useContext } from "react";
+import { useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { BsSuitHeartFill } from "react-icons/bs";
 import { AiOutlineStar } from "react-icons/ai";
-import { useDispatch,useSelector } from "react-redux";
-import { postFavouriteProduct } from "../Redux/Favorite/favourite.action";
+import { useDispatch, useSelector } from "react-redux";
+// import { postFavouriteProduct } from "../Redux/Favorite/favourite.action";
 
-
-
-
-export default function CardComponent({cardData}) {
+export default function CardComponent({ cardData }) {
   const navigate = useNavigate();
 
-
   const {
-    name,
-    brand,
-    current_price,
-    original_price,
+    _id,
+    category,
+    image,
+    price,
     rating,
-    rating_count,
-    thumbnail,
-    query_url,
-    id,
-  }=cardData;
-  const toast=useToast()
-  const dispatch=useDispatch();
-  const favouriteProduct=useSelector((store)=>store.favouriteReducer.data)
+    reviews,
+    title,
+  } = cardData;
+  const toast = useToast();
+  const dispatch = useDispatch();
+  // const favouriteProduct = useSelector((store) => store.favouriteReducer.data);
 
-
-
-  const handleheart = () => {
-   
+  const handleheart = () => {};
+  const handleClick = () => {
+    navigate(`/product/}`);
   };
-  const handleClick=()=>{
-    navigate(`/product/${id}`)
-  }
 
-  let x = Math.ceil(((original_price - current_price) / original_price) * 100);
+  // let x = Math.ceil(((original_price - current_price) / original_price) * 100);
   return (
     <Box gap={9}>
       <Box
@@ -60,7 +48,6 @@ export default function CardComponent({cardData}) {
         shadow="lg"
         position="relative"
         pt={3}
-        
       >
         {rating > 4.5 ? (
           <Text
@@ -83,23 +70,22 @@ export default function CardComponent({cardData}) {
           p={"3px"}
           bg={"white"}
           color={"rgb(200,200,200)"}
-          _hover={{ color: "rgb(40,116,240)",cursor:'pointer' }}
+          _hover={{ color: "rgb(40,116,240)", cursor: "pointer" }}
           fontSize={"15px"}
           borderRadius={"sm"}
           onClick={handleheart}
-
         >
           <BsSuitHeartFill />
         </Text>
 
         <Image
-          src={thumbnail}
-          alt={`Picture of ${name}`}
+          src={image}
+          alt={`picture of ${title}`}
           height={"200px"}
           margin={"auto"}
         />
 
-        <Box p={2 } onClick={handleClick}>
+        <Box p={2} onClick={handleClick}>
           <Flex justifyContent={"space-between"}>
             <Text
               fontFamily={"montserrat,sans-serif"}
@@ -107,7 +93,7 @@ export default function CardComponent({cardData}) {
               fontWeight={600}
               color={"gray.600"}
             >
-              {brand}
+              brand
             </Text>
           </Flex>
 
@@ -123,25 +109,29 @@ export default function CardComponent({cardData}) {
               isTruncated
               onClick={handleClick}
             >
-              {name}
+              {title}
             </Box>
           </Flex>
-          <HStack
-            p={"1px"}
-            pr={1}
-            color={"black"}
-          >
-            <Flex bgColor={'rgb(56,142,60)'} px={1} color={'white'} gap={2} borderRadius={2} >
+          <HStack p={"1px"} pr={1} color={"black"}>
+            <Flex
+              bgColor={"rgb(56,142,60)"}
+              px={1}
+              color={"white"}
+              gap={2}
+              borderRadius={2}
+            >
               <Text fontSize={"14px"}>{rating}</Text>
               <Text fontSize={"14px"} mt={"4px"}>
                 <AiOutlineStar />
               </Text>
             </Flex>
-            <Text fontSize={'12px'} fontWeight={'medium'} color={'rgb(139,135,135)'} >
-              ({rating_count})
+            <Text
+              fontSize={"12px"}
+              fontWeight={"medium"}
+              color={"rgb(139,135,135)"}
+            >
+              ({rating})
             </Text>
-
-    
           </HStack>
 
           <HStack
@@ -151,22 +141,34 @@ export default function CardComponent({cardData}) {
             fontSize="16px"
             fontWeight={"medium"}
           >
-            <Text fontWeight={'bold'} color={'black'}>₹ {current_price}</Text>
-            <Text textDecor={"line-through"} pt={1} fontSize={"12px"} >
-              ₹ {original_price}
+            <Text fontWeight={"bold"} color={"black"}>
+              ₹ {price}
             </Text>
-            <Text color={'rgb(56,142,60)'} pt={1} fontSize={"14px"}>
-              {x}% off
+            <Text textDecor={"line-through"} pt={1} fontSize={"12px"}>
+              ₹ {price*50}
+            </Text>
+            <Text color={"rgb(56,142,60)"} pt={1} fontSize={"14px"}>
+              40% off
             </Text>
           </HStack>
-            <Text  pt={1} fontSize={"11px"} textAlign={'left'} fontWeight={'medium'} >
-              Free delivery
-            </Text>
-          
-            <Text  pt={1} fontSize={"14px"} textAlign={'left'} fontWeight={'bold'} color={'rgb(56,142,60)'} >
+          <Text
+            pt={1}
+            fontSize={"11px"}
+            textAlign={"left"}
+            fontWeight={"medium"}
+          >
+            Free delivery
+          </Text>
+
+          <Text
+            pt={1}
+            fontSize={"14px"}
+            textAlign={"left"}
+            fontWeight={"bold"}
+            color={"rgb(56,142,60)"}
+          >
             Bank Offer
-            </Text>
-          
+          </Text>
         </Box>
       </Box>
     </Box>
