@@ -16,30 +16,30 @@ import { useDispatch, useSelector } from "react-redux";
 
 export default function CardComponent({ cardData }) {
   const navigate = useNavigate();
-
-  const {
+  let {
     _id,
+    brand,
     category,
     image,
-    price,
     rating,
+    price,
     reviews,
+    sub_category,
     title,
   } = cardData;
+  const reviewsString = reviews.toLocaleString("en-IN");
+  price = price.toLocaleString();
   const toast = useToast();
   const dispatch = useDispatch();
   // const favouriteProduct = useSelector((store) => store.favouriteReducer.data);
 
-  const handleheart = () => {};
   const handleClick = () => {
-    navigate(`/product/}`);
+    navigate(`/product/${_id}`);
   };
-
-  // let x = Math.ceil(((original_price - current_price) / original_price) * 100);
   return (
     <Box gap={9}>
       <Box
-        bg={useColorModeValue("white", "gray.800")}
+        bg={useColorModeValue("gray.100", "gray.800")}
         // border={'1px solid black'}
         // minW="90%"
         w="100%"
@@ -49,21 +49,22 @@ export default function CardComponent({ cardData }) {
         position="relative"
         pt={3}
       >
-        {rating > 4.5 ? (
+        {reviews > 5000 ? (
           <Text
             position="absolute"
-            top={1}
-            left={1}
+            top={0}
+            left={0}
             p={"3px"}
-            bg={"rgb(0,160,152)"}
+            bg={"rgb(0,47,54)"}
             color={"white"}
-            fontSize={"11px"}
+            fontSize={"12px"}
             borderRadius={"sm"}
           >
-            Best Seller
+            Best
+            <Text as={"span"} color={"rgb(255,164,28)"}> Seller</Text>
           </Text>
         ) : null}
-        <Text
+        {/* <Text
           position="absolute"
           top={1}
           left={280}
@@ -76,7 +77,7 @@ export default function CardComponent({ cardData }) {
           onClick={handleheart}
         >
           <BsSuitHeartFill />
-        </Text>
+        </Text> */}
 
         <Image
           src={image}
@@ -92,8 +93,9 @@ export default function CardComponent({ cardData }) {
               fontSize={"14px"}
               fontWeight={600}
               color={"gray.600"}
+              textTransform={"capitalize"}
             >
-              brand
+              {brand}
             </Text>
           </Flex>
 
@@ -114,7 +116,7 @@ export default function CardComponent({ cardData }) {
           </Flex>
           <HStack p={"1px"} pr={1} color={"black"}>
             <Flex
-              bgColor={"rgb(56,142,60)"}
+              bgColor={"rgb(255,164,28)"}
               px={1}
               color={"white"}
               gap={2}
@@ -126,11 +128,11 @@ export default function CardComponent({ cardData }) {
               </Text>
             </Flex>
             <Text
-              fontSize={"12px"}
+              fontSize={"14px"}
               fontWeight={"medium"}
-              color={"rgb(139,135,135)"}
+              color={"rgb(0,113,133)"}
             >
-              ({rating})
+              {reviewsString}
             </Text>
           </HStack>
 
@@ -145,10 +147,10 @@ export default function CardComponent({ cardData }) {
               ₹ {price}
             </Text>
             <Text textDecor={"line-through"} pt={1} fontSize={"12px"}>
-              ₹ {price*50}
+              ₹ {price * 10}
             </Text>
             <Text color={"rgb(56,142,60)"} pt={1} fontSize={"14px"}>
-              40% off
+              x% off
             </Text>
           </HStack>
           <Text
@@ -158,16 +160,6 @@ export default function CardComponent({ cardData }) {
             fontWeight={"medium"}
           >
             Free delivery
-          </Text>
-
-          <Text
-            pt={1}
-            fontSize={"14px"}
-            textAlign={"left"}
-            fontWeight={"bold"}
-            color={"rgb(56,142,60)"}
-          >
-            Bank Offer
           </Text>
         </Box>
       </Box>
