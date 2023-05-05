@@ -12,7 +12,7 @@ app.use(cors());
 
 app.use("/", userRouter);
 
-app.use(auth);
+// app.use(auth);
 app.use("/products", productRouter);
 
 app.listen(process.env.PORT_NUMBER, () => {
