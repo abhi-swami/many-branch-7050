@@ -11,8 +11,9 @@ app.use(express.json());
 app.use(cors());
 
 app.use("/", userRouter);
-app.use("/products", productRouter);
+
 app.use(auth);
+app.use("/products", productRouter);
 
 app.listen(process.env.PORT_NUMBER, () => {
   console.log(`Server is running at Port ${process.env.PORT_NUMBER}`);
