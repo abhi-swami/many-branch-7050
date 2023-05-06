@@ -6,7 +6,6 @@ import {
   Box,
   IconButton,
   useBreakpointValue,
-  Stack,
   Heading,
   Image,
   Text,

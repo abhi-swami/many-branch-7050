@@ -1,6 +1,6 @@
 /* single product page */
 .main_flex {
-  border: 1px solid rgb(22, 141, 68);
+  border: 0px solid rgb(22, 141, 68);
 }
 @media (max-width: 907px) {
   .main_flex {
