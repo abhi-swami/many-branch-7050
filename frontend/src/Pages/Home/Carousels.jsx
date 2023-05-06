@@ -195,7 +195,7 @@ export function ImageSlider() {
 
                   {/* ****************************************************************** */}
                 <Box height={'400px'} width={'290px'} 
-                     backgroundColor={''}   >
+                       >
 
                     
                   <Box >
@@ -326,7 +326,7 @@ export function ProductSlider() {
             backgroundSize="cover"
             backgroundImage={`url(${card.image})`}>
         
-        <Box
+        {/* <Box
             key={index}
             height={'250px'}
             width={'200px'}
@@ -337,8 +337,8 @@ export function ProductSlider() {
             backgroundSize="cover"
             backgroundImage={`url(${card.image})`}
             >
-        </Box>
-        <Box
+        </Box> */}
+        {/* <Box
             key={index}
             height={'250px'}
             width={'200px'}
@@ -348,7 +348,7 @@ export function ProductSlider() {
             backgroundRepeat="no-repeat"
             backgroundSize="cover"
             backgroundImage={`url(${card.image})`}>
-        </Box>
+        </Box> */}
       </Box>
     </Box>
 

@@ -1,14 +1,16 @@
-import Login from './Pages/Auth/Login';
-import './App.css';
 
+import './App.css';
+import { Navbar } from './Components/Navbar';
+// import { Navbar } from './Components/NavbarMenu/Navbar';
+// import Navbar from "./Components/NavbarMenu/navbar";
 import AllPages from './Router/AllPages';
-import Signup from './Pages/Auth/Signup';
 
 function App() {
   return (
     <div >
       {/* <Signup/> */}
       {/* <Login/> */}
+      <Navbar/>
       <AllPages/>
     </div>
   );
