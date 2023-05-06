@@ -7,8 +7,10 @@ import {
   HStack,
   Icon,
   Image,
+  Stack,
   Text,
   useToast,
+  VStack,
 } from "@chakra-ui/react";
 
 import React, { useEffect, useState } from "react";
@@ -16,11 +18,15 @@ import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import { BsSuitHeartFill } from "react-icons/bs";
 import { ImCart } from "react-icons/im";
 import { IoMdShareAlt } from "react-icons/io";
+import { CiDiscount1 } from "react-icons/ci";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Styles from "../../CSS/SingleProductPage.module.css";
 
 import { useDispatch, useSelector } from "react-redux";
 import { getSingleProduct } from "../../Redux/Search/search.action";
+import ManualCarousels from "../../Carouseles/OfferCarousels";
+import { offers, statistics } from "../../Utils/SingleProduct";
+import StatsCarousels from "../../Carouseles/StatsCarousels";
 
 const SingleProduct = () => {
   const { productId } = useParams();
@@ -121,14 +127,13 @@ const SingleProduct = () => {
               ></Flex>
             </Box>
           </Box>
-          <Box w="25%" pl={5} pt="10px" border={"1px solid black"} mt={6}>
+          <Box w="30%" pl={5} pt="10px" border={"1px solid black"} mt={6}>
             <Box>
               <Text fontSize={"24px"} fontWeight="500">
                 {title}
               </Text>
               <HStack p={"1px"} pr={1} my={2} color={"black"}>
                 <Flex
-                  // bgColor={"rgb(56,142,60)"}
                   px={1}
                   color={"black"}
                   gap={0}
@@ -137,12 +142,12 @@ const SingleProduct = () => {
                 >
                   <Text fontSize={"15px"}>{rating}</Text>
                   {fillStar.map((el) => (
-                    <Text as={"span"} mt={1}>
+                    <Text as={"span"} mt={1} key={Math.random()}>
                       {el}
                     </Text>
                   ))}
                   {emptyStar.map((el) => (
-                    <Text as={"span"} mt={1}>
+                    <Text as={"span"} mt={1} key={Math.random()}>
                       {el}
                     </Text>
                   ))}
@@ -156,11 +161,14 @@ const SingleProduct = () => {
                 </Text>
               </HStack>
               <hr />
-              <hr/>
-            
-              <HStack fontSize="18px" fontWeight={"medium"}>
-                <Text color={"rgb(56,142,60)"} pt={1} fontSize={"15px"}>
-                  Extra ₹ x off
+              <hr />
+
+              <HStack fontSize="18px" fontWeight={"normal"}>
+                <Text color={"rgb(210,42,81)"} pt={1} fontSize={"24px"}>
+                  - 58 %
+                </Text>
+                <Text fontWeight={"light"} color={"black"} fontSize={"24px"}>
+                  ₹ {price}
                 </Text>
               </HStack>
               <HStack
@@ -168,151 +176,94 @@ const SingleProduct = () => {
                 alignContent="flex-end"
                 color={"gray.600"}
                 fontSize="18px"
-                fontWeight={"medium"}
+                fontWeight={"normal"}
               >
-                <Text fontWeight={"bold"} color={"black"}>
-                  ₹ {price}
+                <Text as={"span"} pt={1} fontSize={"14px"}>
+                  MRP
                 </Text>
-                <Text textDecor={"line-through"} pt={1} fontSize={"14px"}>
+                <Text
+                  as={"span"}
+                  pt={1}
+                  fontSize={"14px"}
+                  textDecor={"line-through"}
+                >
                   ₹ {price + 10}
                 </Text>
-                <Text color={"rgb(56,142,60)"} pt={1} fontSize={"15px"}>
-                  x% off
+              </HStack>
+              <HStack fontSize="15px">
+                <Text pt={1} fontSize={"14px"} color={"rgb(204,12,57)"}>
+                  Summer Sale Deal
                 </Text>
               </HStack>
-              <HStack
-                color={"gray.600"}
-                fontSize="15px"
-                fontWeight={"medium"}
-                mt={5}
-              >
-                <Text fontWeight={"bold"} color={"black"}>
-                  Available offers
-                </Text>
-              </HStack>
-              <Flex my={2}>
-                <Image
-                  src={
-                    "https://rukminim1.flixcart.com/www/36/36/promos/06/09/2016/c22c9fc4-0555-4460-8401-bf5c28d7ba29.png?q=90"
-                  }
-                  w={"20px"}
-                  mt={1}
-                />
-                <Text ml={2}> Pay Later</Text>
-              </Flex>
-              <Flex my={2}>
-                <Image
-                  src={
-                    "https://rukminim1.flixcart.com/www/36/36/promos/06/09/2016/c22c9fc4-0555-4460-8401-bf5c28d7ba29.png?q=90"
-                  }
-                  w={"20px"}
-                  mt={1}
-                />
-                <Text ml={2}>
-                  <Text as={"span"} fontWeight="semibold">
-                    Bank Offer
-                  </Text>{" "}
-                  10% instant discount on PNB Credit Card, up to ₹1500, on
-                  orders of ₹5,000 and above{" "}
-                  <Text
-                    as={"span"}
-                    fontWeight="semibold"
-                    fontSize={"12px"}
-                    color={"blue"}
-                  >
-                    T&C
+              <hr />
+              <hr />
+              {/* offer section */}
+              <Stack my={2}>
+                <HStack>
+                  <CiDiscount1 color={"rgb(255,164,28)"} fontSize={"24px"} />
+                  <Text ml={2} fontWeight={"semibold"}>
+                    Offers
                   </Text>
-                </Text>
-              </Flex>
-              <Flex my={2}>
-                <Image
-                  src={
-                    "https://rukminim1.flixcart.com/www/36/36/promos/06/09/2016/c22c9fc4-0555-4460-8401-bf5c28d7ba29.png?q=90"
-                  }
-                  w={"20px"}
-                  mt={1}
-                />
-                <Text ml={2}>
-                  <Text as={"span"} fontWeight="semibold">
-                    Bank Offer
-                  </Text>{" "}
-                  10% off on Yes Bank Credit Card, up to ₹1,500. On orders of
-                  ₹10,000 and above{" "}
-                  <Text
-                    as={"span"}
-                    fontWeight="semibold"
-                    fontSize={"12px"}
-                    color={"blue"}
-                  >
-                    T&C
-                  </Text>
-                </Text>
-              </Flex>
-              <Flex my={2}>
-                <Image
-                  src={
-                    "https://rukminim1.flixcart.com/www/36/36/promos/06/09/2016/c22c9fc4-0555-4460-8401-bf5c28d7ba29.png?q=90"
-                  }
-                  w={"20px"}
-                  mt={1}
-                />
-                <Text ml={2}>
-                  <Text as={"span"} fontWeight="semibold">
-                    Bank Offer
-                  </Text>{" "}
-                  Get additional ₹1500 off on Debit and Credit cards{" "}
-                  <Text
-                    as={"span"}
-                    fontWeight="semibold"
-                    fontSize={"12px"}
-                    color={"blue"}
-                  >
-                    T&C
-                  </Text>
-                </Text>
-              </Flex>
-              <Box boxShadow={"lg"} pl={2}>
-                <Heading textAlign={"left"} my={2} fontSize={"18px"}>
-                  Specifications
-                </Heading>
-                {specs?.map((el) =>
-                  el.title && el.details.length > 0 ? (
-                    <Flex key={Math.random()} textAlign={"justify"}>
-                      <Box border={"0px solid pink"} w={"60%"} boxShadow={"sm"}>
-                        <Heading my={1} fontSize={"16px"}>
-                          {el.title}
-                        </Heading>
+                </HStack>
+                <ManualCarousels allData={offers} />
+              </Stack>
+              <hr />
+              <hr />
 
-                        <Flex
-                          border={"0px solid green"}
-                          w={"90%"}
-                          textAlign={"left"}
-                          flexDirection={"column"}
-                        >
-                          {el.details.map((x) => (
-                            <HStack
-                              borderBottom={"0.5px solid lightgray"}
-                              mt={3}
-                              key={Math.random()}
-                            >
-                              <Box w={"40%"}>
-                                <Text color={"rgb(135,135,151)"}>
-                                  {x.property}
-                                </Text>
-                              </Box>
-                              <Box w={"60%"} textAlign={"justify"}>
-                                <Text color={"rgb(135,135,151)"}>
-                                  {x.value}
-                                </Text>
-                              </Box>
-                            </HStack>
-                          ))}
-                        </Flex>
-                      </Box>
-                    </Flex>
-                  ) : null
-                )}
-              </Box>
+              {/* stats section */}
+              <StatsCarousels allData={statistics} />
+            </Box>
+          </Box>
+          <Box w="20%" p={3} pt="10px" mt={4}>
+            <Box border={"1px solid black"}>
+              <Text fontWeight={"medium"} color={"black"} fontSize={"24px"}>
+                ₹ {price}
+              </Text>
+              <Text
+                fontSize={"15px"}
+                fontWeight={"semibold"}
+                color={"rgb(0,113,144)"}
+              >
+                Free delivery
+              </Text>
+              <Text
+                mt={6}
+                fontSize={"18px"}
+                fontWeight={"semibold"}
+                color={"green.600"}
+              >
+                In stock
+              </Text>
+              <VStack
+                gap={"2%"}
+                mt={5}
+                className={Styles.Button_flex}
+                justifyContent={"center"}
+              >
+                <Button
+                  onClick={handleCart}
+                  bg={"rgb(255,159,0)"}
+                  borderRadius={"full"}
+                  color="white"
+                  _hover={{ bgColor: "none" }}
+                >
+                  <Text as={"span"} ml={4} fontSize={"12px"}>
+                    ADD TO CART
+                  </Text>
+                </Button>
+                <Button
+                  onClick={handleBuy}
+                  bg={"rgb(251,100,27)"}
+                  borderRadius={"full"}
+                  px={7}
+                  color="white"
+                  _hover={{ bgColor: "none" }}
+                >
+                  <Text as={"span"} ml={4} fontSize={"12px"}>
+                    BUY NOW
+                  </Text>
+                </Button>
+              </VStack>
             </Box>
           </Box>
         </Flex>
