@@ -2,11 +2,22 @@ const { ProductModel } = require("../models/product.model");
 
 const getAllProducts = async (req, res) => {
   //  query
-  const { category, sub_category, title, brand, type, rating, price, sort,page,limit } =req.query;
+  const {
+    category,
+    sub_category,
+    title,
+    brand,
+    type,
+    rating,
+    price,
+    sort,
+    page,
+    limit,
+  } = req.query;
   const query = {};
-  const newPage=page||1;
-  const newLimit=limit||12;
-  const skip=(newPage-1)*newLimit;
+  const newPage = page || 1;
+  const newLimit = limit || 12;
+  const skip = (newPage - 1) * newLimit;
   if (category) query.category = category || {};
   if (sub_category) query.sub_category = sub_category || {};
   if (brand) query.brand = brand;
@@ -29,7 +40,7 @@ const getAllProducts = async (req, res) => {
   if (price) {
     if (+price[1] !== 0) {
       query.price = { $gte: Number(price[0]), $lte: Number(price[1]) };
-    } 
+    }
   }
 
   //  all type of sorting
@@ -47,7 +58,10 @@ const getAllProducts = async (req, res) => {
 
   try {
     // const products = await ProductModel.find(query).sort(sorting);
-    const products = await ProductModel.find(query).skip(skip).limit(newLimit).sort(sorting);
+    const products = await ProductModel.find(query)
+      .skip(skip)
+      .limit(newLimit)
+      .sort(sorting);
 
     if (products.length === 0) {
       res.status(404).send({ message: "Product not available" });
@@ -56,7 +70,7 @@ const getAllProducts = async (req, res) => {
       res.status(200).send({
         products,
         currentPage: parseInt(newPage),
-        totalPages: Math.ceil(count/newLimit),
+        totalPages: Math.ceil(count / newLimit),
       });
     }
   } catch (error) {
@@ -67,8 +81,17 @@ const getAllProducts = async (req, res) => {
 const getSingleProduct = async (req, res) => {
   const { id } = req.params;
   try {
-    const product=await ProductModel.findById({_id:id});
-    res.status(200).send({product});
+    const product = await ProductModel.findById({ _id: id });
+    res.status(200).send({ product });
+  } catch (error) {
+    res.status(400).send(error);
+  }
+};
+const getsubcategory = async (req, res) => {
+  try {
+    const product = await ProductModel.find(req.query);
+ 
+    res.status(200).send({ product });
   } catch (error) {
     res.status(400).send(error);
   }
@@ -106,4 +129,11 @@ const deleteProduct = async (req, res) => {
   }
 };
 
-module.exports = { getAllProducts,getSingleProduct, addProduct, updateProduct, deleteProduct };
+module.exports = {
+  getAllProducts,
+  getSingleProduct,
+  getsubcategory,
+  addProduct,
+  updateProduct,
+  deleteProduct,
+};
