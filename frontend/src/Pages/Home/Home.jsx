@@ -2,7 +2,6 @@ import { Box, Heading, Image } from '@chakra-ui/react'
 import React from 'react'
 import { ImageSlider, ProductSlider, } from './Carousels'
 
-
 const Home = () => {
   return (
     <div>
@@ -82,6 +81,8 @@ const Home = () => {
      justifyContent="space-evenly" backgroundColor={'white'}  >
            <ProductSlider/>
            
+            
+
            </Box>
 
 
