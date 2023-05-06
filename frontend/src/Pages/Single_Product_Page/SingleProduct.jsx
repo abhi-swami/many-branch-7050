@@ -27,11 +27,13 @@ import { getSingleProduct } from "../../Redux/Search/search.action";
 import ManualCarousels from "../../Carouseles/OfferCarousels";
 import { offers, statistics } from "../../Utils/SingleProduct";
 import StatsCarousels from "../../Carouseles/StatsCarousels";
+import { SingleProductCarousel } from "./SubCategorySlider";
+import { postCartProduct } from "../../Redux/Cart/cart.action";
 
 const SingleProduct = () => {
   const { productId } = useParams();
   const {
-    id,
+    _id,
     brand,
     category,
     image,
@@ -41,18 +43,30 @@ const SingleProduct = () => {
     sub_category,
     title,
   } = useSelector((store) => store?.searchReducer?.singleProduct);
+  localStorage.setItem(
+    "token",
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2NDU2YWMwMTdjY2I2NGVmZmNmZDQ2NjQiLCJpYXQiOjE2ODM0MDE4MTMsImV4cCI6MTY4MzQ0NTAxM30.tM8eKXizgphp1TPZ3l5mVtc7dXvuJfqDft3f3nR6-rc"
+  );
   const [data, setData] = useState([]);
   const [star, setStar] = useState([]);
-  const [singleData, setSingleData] = useState([]);
   // const { cardProucts } = useContext(CartContext);
   const toast = useToast();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleCart = () => {
-    // if (user) {
-    //   const payload = { ...data, quantity: 1 };
-    //   dispatch(PostCartProduct(payload))
+    const payload = {
+      brand,
+      category,
+      image,
+      rating,
+      price,
+      reviews,
+      sub_category,
+      title,
+      quantity: 1,
+    };
+      dispatch(postCartProduct(payload))
     //     .then(() => cardProucts())
     //     .then(() => navigate("/cart"))
     //     .catch((err) =>
@@ -65,9 +79,6 @@ const SingleProduct = () => {
     //         isClosable: true,
     //       }).then(() => navigate("/cart"))
     //     );
-    // } else {
-    //   onOpen();
-    // }
   };
 
   const handleBuy = () => {
@@ -84,8 +95,6 @@ const SingleProduct = () => {
       dispatch(getSingleProduct(productId));
     }
   }, [productId, dispatch]);
-  const { specs, share_url } = singleData;
-  console.log(star);
   let tf;
   let te;
   let reviewsString;
@@ -107,15 +116,15 @@ const SingleProduct = () => {
         <Flex py={2} pl={2} pr={2} gap="2px" className={Styles.main_flex}>
           <Box
             w="50%"
-            boxShadow={"md"}
+            boxShadow={"sm"}
             height={"auto"}
             position={"-webkit-sticky"}
             ml={2}
             mt={6}
-            border={"1px solid black"}
+            border={"0px solid black"}
           >
             <Box pos={"sticky"} top={10}>
-              <Box width={"100%"} margin={"auto"} border={"1px solid red"}>
+              <Box width={"100%"} margin={"auto"} border={"0px solid red"}>
                 <Image src={image} m="auto" objectFit={"fill"} />
               </Box>
 
@@ -127,7 +136,7 @@ const SingleProduct = () => {
               ></Flex>
             </Box>
           </Box>
-          <Box w="30%" pl={5} pt="10px" border={"1px solid black"} mt={6}>
+          <Box w="30%" pl={5} pt="10px" border={"0px solid black"} mt={6}>
             <Box>
               <Text fontSize={"24px"} fontWeight="500">
                 {title}
@@ -176,7 +185,7 @@ const SingleProduct = () => {
                 alignContent="flex-end"
                 color={"gray.600"}
                 fontSize="18px"
-                fontWeight={"normal"}
+                fontWeight={"normal"} 
               >
                 <Text as={"span"} pt={1} fontSize={"14px"}>
                   MRP
@@ -214,8 +223,8 @@ const SingleProduct = () => {
               <StatsCarousels allData={statistics} />
             </Box>
           </Box>
-          <Box w="20%" p={3} pt="10px" mt={4}>
-            <Box border={"1px solid black"}>
+          <Box w="20%" pt="10px" mt={4}>
+            <Box border={"1px solid black"} p={4} borderRadius={"md"}>
               <Text fontWeight={"medium"} color={"black"} fontSize={"24px"}>
                 ₹ {price}
               </Text>
@@ -234,7 +243,7 @@ const SingleProduct = () => {
               >
                 In stock
               </Text>
-              <VStack
+              <HStack
                 gap={"2%"}
                 mt={5}
                 className={Styles.Button_flex}
@@ -247,7 +256,7 @@ const SingleProduct = () => {
                   color="white"
                   _hover={{ bgColor: "none" }}
                 >
-                  <Text as={"span"} ml={4} fontSize={"12px"}>
+                  <Text as={"span"} fontSize={"12px"}>
                     ADD TO CART
                   </Text>
                 </Button>
@@ -255,16 +264,35 @@ const SingleProduct = () => {
                   onClick={handleBuy}
                   bg={"rgb(251,100,27)"}
                   borderRadius={"full"}
-                  px={7}
                   color="white"
                   _hover={{ bgColor: "none" }}
                 >
-                  <Text as={"span"} ml={4} fontSize={"12px"}>
+                  <Text as={"span"} fontSize={"12px"}>
                     BUY NOW
                   </Text>
                 </Button>
-              </VStack>
+              </HStack>
             </Box>
+          </Box>
+        </Flex>
+        <Flex py={2} pl={2} pr={2} gap="2px">
+          <Box
+            w="90%"
+            boxShadow={"sm"}
+            height={"auto"}
+            position={"-webkit-sticky"}
+            border={"0px solid black"}
+            margin={"auto"}
+          >
+            <Text
+              fontSize={"2xl"}
+              fontFamily={"sans-serif"}
+              fontWeight={"semibold"}
+            >
+              {" "}
+              Have a look on these to
+            </Text>
+            <SingleProductCarousel sub_category={sub_category} />
           </Box>
         </Flex>
       </Box>
