@@ -1,9 +1,10 @@
 
 import React, { useState } from "react";
-import { Box, Text, Input, Button } from "@chakra-ui/react";
+import { Box, Text, Input, Button, Img } from "@chakra-ui/react";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { Navigate } from "react-router-dom";
+import REACTLOGO from "./amaze.png"
 
 
 export const Signup = () => {
@@ -26,10 +27,11 @@ export const Signup = () => {
     <>
       {/* <DarkModeButton /> */}
       <Box mb={"20px"}>
+        {/* <Img margin={"auto"} borderRadius={"50%"} mt={"10px"} width={"12%"} src={REACTLOGO} /> */}
         <Box
           textAlign={"center"}
           margin={"auto"}
-          mt={"70px"}
+          mt={"40px"}
           pb={"25px"}
           width={"350px"}
           borderRadius="10px"
