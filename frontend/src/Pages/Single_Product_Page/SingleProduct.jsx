@@ -186,6 +186,7 @@ const SingleProduct = () => {
                 color={"gray.600"}
                 fontSize="18px"
                 fontWeight={"normal"}
+                
               >
                 <Text as={"span"} pt={1} fontSize={"14px"}>
                   MRP
