@@ -2,8 +2,25 @@ const { CartModel } = require("../models/cart.model");
 
 const postCartProduct = async (req, res) => {
   let obj = req.body;
+  const {
+    category,
+    image,
+    rating,
+    price,
+    reviews,
+    sub_category,
+    title,
+    userID,
+  }=obj
   try {
-    const isProductExist= await CartModel.find(obj)
+    const isProductExist= await CartModel.find({category,
+      image,
+      rating,
+      price,
+      reviews,
+      sub_category,
+      title,
+      userID,})
     if(isProductExist.length>0){
       newData=isProductExist[0];
       const arr=isProductExist.map((el)=>el.quantity?el.quantity+1:el)
@@ -37,12 +54,13 @@ const getCartProduct = async (req, res) => {
 };
 const patchCartProduct = async (req, res) => {
     const { id } = req.params;
-    let obj = req.body;
+    console.log("param",req.params,"body",req.body)
+    let {param} = req.body;
     try {
-        const data = await CartModel.findByIdAndUpdate(id, obj, {
+        const data = await CartModel.findByIdAndUpdate(id, param, {
             returnDocument: "after",
         });
-        console.log(data);
+        console.log("data",data);
         res.status(200).send({ mesg: `Updated the post successfully`, data: data });
     } catch (error) {
         res.status(400).send({ error: error.message });
