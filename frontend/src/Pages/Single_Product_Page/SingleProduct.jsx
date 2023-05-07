@@ -28,7 +28,7 @@ import ManualCarousels from "../../Carouseles/OfferCarousels";
 import { offers, statistics } from "../../Utils/SingleProduct";
 import StatsCarousels from "../../Carouseles/StatsCarousels";
 import { SingleProductCarousel } from "./SubCategorySlider";
-import { postCartProduct } from "../../Redux/Cart/cart.action";
+import { getCartProducts, postCartProduct } from "../../Redux/Cart/cart.action";
 
 const SingleProduct = () => {
   const { productId } = useParams();
@@ -45,7 +45,7 @@ const SingleProduct = () => {
   } = useSelector((store) => store?.searchReducer?.singleProduct);
   localStorage.setItem(
     "token",
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2NDU2YWMwMTdjY2I2NGVmZmNmZDQ2NjQiLCJpYXQiOjE2ODM0MDE4MTMsImV4cCI6MTY4MzQ0NTAxM30.tM8eKXizgphp1TPZ3l5mVtc7dXvuJfqDft3f3nR6-rc"
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2NDU2YWMwMTdjY2I2NGVmZmNmZDQ2NjQiLCJpYXQiOjE2ODM0NDUwNjcsImV4cCI6MTY4MzQ4ODI2N30.XdyoYPn86t0cfQo4Orwa2NKiWrCk4aosf6EHcH1UwaE"
   );
   const [data, setData] = useState([]);
   const [star, setStar] = useState([]);
@@ -67,8 +67,8 @@ const SingleProduct = () => {
       quantity: 1,
     };
       dispatch(postCartProduct(payload))
-    //     .then(() => cardProucts())
-    //     .then(() => navigate("/cart"))
+        .then(() => dispatch(getCartProducts()))
+        .then(() => navigate("/cart"))
     //     .catch((err) =>
     //       toast({
     //         position: `top`,
@@ -109,6 +109,7 @@ const SingleProduct = () => {
   const emptyStar = new Array(te).fill(
     <AiOutlineStar color={"rgb(255,164,28)"} />
   );
+  const originalPriceString=price?.toLocaleString("en-IN")
 
   return (
     <>
@@ -177,7 +178,7 @@ const SingleProduct = () => {
                   - 58 %
                 </Text>
                 <Text fontWeight={"light"} color={"black"} fontSize={"24px"}>
-                  ₹ {price}
+                  ₹ {originalPriceString}
                 </Text>
               </HStack>
               <HStack
@@ -226,7 +227,7 @@ const SingleProduct = () => {
           <Box w="20%" pt="10px" mt={4}>
             <Box border={"1px solid black"} p={4} borderRadius={"md"}>
               <Text fontWeight={"medium"} color={"black"} fontSize={"24px"}>
-                ₹ {price}
+                ₹ {originalPriceString}
               </Text>
               <Text
                 fontSize={"15px"}

@@ -31,19 +31,20 @@ export const cartReducer = (state = initial, action) => {
             ...state,
             isLoading:false,
             isError:false,
-            data:[...payload.products],
+            data:[...payload.data],
         }
     }
     case CART_POST_SUCCESS:{
+
         return{
             ...state,
             isLoading:false,
             isError:false,
-            data:[...state.data,...payload.products],
+            data:[...state.data,...payload.data],
         }
     }
     case CART_PATCH_SUCCESS:{
-        const arr=state.data.map((el)=>el._id===payload._id?{...el,...payload}:el)
+        const arr=state.data.map((el)=>el._id===payload.data._id?{...el,...payload.data}:el)
         return {
             ...state,
             isLoading: false,
@@ -52,7 +53,11 @@ export const cartReducer = (state = initial, action) => {
         };
     }
     case CART_DELETE_SUCCESS:{
-        const arr=state.data.map((el)=>el._id===payload._id?{...el,...payload}:el)
+        console.log("payload",payload)
+        const data=state.data
+        console.log("data",data)
+        const arr=data.filter((el)=>el._id!==payload.data._id)
+        console.log("arr",arr)
         return {
             ...state,
             isLoading: false,
