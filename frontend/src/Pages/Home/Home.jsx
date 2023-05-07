@@ -1,7 +1,8 @@
-import { Box, Heading, Image } from '@chakra-ui/react'
-import React from 'react'
-import { ImageSlider, ProductSlider, } from './Carousels'
 
+import React from 'react';
+import { Box, Heading, Image } from '@chakra-ui/react';
+import {ImageSlider} from './Carousels'
+import ProductCarousels from './ProductCarousal';
 
 const Home = () => {
   return (
@@ -78,10 +79,11 @@ const Home = () => {
 
                             {/* **********************--PRODUCTS--*********************** */}
 
-           <Box   height={'300px'} marginBottom={"20px"} width={'full'} display="flex" border={'2px solid red'}
-     justifyContent="space-evenly" backgroundColor={'white'}  >
+           <Box  >
            {/* <ProductSlider/> */}
-           
+          < ProductCarousels/>
+            
+                
            </Box>
 
       {/* ****************************************************--IMAGE--************************************* */}

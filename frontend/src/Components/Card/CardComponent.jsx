@@ -5,13 +5,13 @@ import {
   useColorModeValue,
   Text,
   HStack,
-  useToast,
+
 } from "@chakra-ui/react";
-import { useEffect, useContext } from "react";
+
 import { useNavigate } from "react-router-dom";
-import { BsSuitHeartFill } from "react-icons/bs";
+
 import { AiOutlineStar } from "react-icons/ai";
-import { useDispatch, useSelector } from "react-redux";
+
 // import { postFavouriteProduct } from "../Redux/Favorite/favourite.action";
 
 export default function CardComponent({ cardData }) {
@@ -19,18 +19,17 @@ export default function CardComponent({ cardData }) {
   let {
     _id,
     brand,
-    category,
+
     image,
     rating,
     price,
     reviews,
-    sub_category,
+
     title,
   } = cardData;
   const reviewsString = reviews.toLocaleString("en-IN");
   price = price.toLocaleString();
-  const toast = useToast();
-  const dispatch = useDispatch();
+  
   // const favouriteProduct = useSelector((store) => store.favouriteReducer.data);
 
   const handleClick = () => {
@@ -40,8 +39,7 @@ export default function CardComponent({ cardData }) {
     <Box gap={9}>
       <Box
         bg={useColorModeValue("gray.100", "gray.800")}
-        // border={'1px solid black'}
-        // minW="90%"
+   
         w="100%"
         gap={10}
         borderWidth="1px"

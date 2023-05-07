@@ -31,6 +31,10 @@ p:hover{
   border: 1px solid white;
 }
 
+Image:hover{
+  border: 1px solid white;
+}
+
 .input{
     /* border: 1px solid green; */
     height:60px;

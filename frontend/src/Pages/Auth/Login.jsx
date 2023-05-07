@@ -1,10 +1,10 @@
 
 import React, { useState } from "react";
-import { Box, Text, Input, Button } from "@chakra-ui/react";
+import { Box, Text, Input, Button,Img } from "@chakra-ui/react";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { Navigate } from "react-router-dom";
-
+import REACTLOGO from "./amaze.png"
 
 export const Login = () => {
   const [email, setEmail] = useState("");
@@ -26,10 +26,11 @@ export const Login = () => {
     <>
       {/* <DarkModeButton /> */}
       <Box mb={"20px"}>
+      {/* <Img margin={"auto"} borderRadius={"50%"} mt={"10px"} width={"70px"} src={REACTLOGO} /> */}
         <Box
           textAlign={"center"}
           margin={"auto"}
-          mt={"150px"}
+          mt={"100px"}
           pb={"25px"}
           width={"340px"}
           borderRadius="10px"
@@ -96,7 +97,20 @@ export const Login = () => {
               textAlign={"left"}
               // paddingTop="20px"
             >
-              By continuing, you agree to Amazon's Conditions of Use and Privacy Notice.
+              By continuing, you agree to Amaze's Conditions of Use and Privacy Notice.
+            </Text>
+            <Text
+              margin={"auto"}
+              fontWeight={500}
+              fontSize="13px"
+              width={"83.5%"}
+              mt={"15px"}
+              mb="10px"
+              textAlign={"left"}
+              // paddingTop="20px"
+            >
+              
+            Create your Amaze account? <Button color={"blue"} fontSize={"13px"} variant={"link"} >Sign up</Button>
             </Text>
             {/* <Button
               mt="5px"

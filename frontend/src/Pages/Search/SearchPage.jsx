@@ -87,6 +87,7 @@ const SearchPage = () => {
   },shallowEqual);
 
 
+
   const [searchParam, setSearchParam] = useSearchParams();
   const [filterbrand, setFilterBrand] = useState([]);
   const [filterStar, setFilterStar] = useState([]);

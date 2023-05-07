@@ -23,25 +23,35 @@ import {
   
     return (
       <>
-        {/* <RadioGroup defaultValue={placement} onChange={setPlacement}>
-          <Stack direction='row' mb='4'>
-            <Radio value='top'>Top</Radio>
-            <Radio value='right'>Right</Radio>
-            <Radio value='bottom'>Bottom</Radio>
-            <Radio value='left'>Left</Radio>
-          </Stack>
-        </RadioGroup> */}
+        
         <Text  onClick={onOpen} >
           All
         </Text>
         <Drawer placement={placement} onClose={onClose} isOpen={isOpen}>
           <DrawerOverlay />
           <DrawerContent>
-            <DrawerHeader borderBottomWidth='1px'>Basic Drawer</DrawerHeader>
+            <DrawerHeader borderBottomWidth='1px'>Trending</DrawerHeader>
             <DrawerBody>
-              <p>Some contents...</p>
-              <p>Some contents...</p>
-              <p>Some contents...</p>
+              <p>Best Sellers</p>
+              <br/>
+              <p>New Release</p>
+              <br/>
+              <p>Movers and Shakers</p>
+              <DrawerHeader borderBottomWidth='.5px' width='500px' >Digital Content and Devices</DrawerHeader>
+              <br/>
+              <p>Amazon mini-Tv FREE entertainment</p>
+              <br/>
+              <p>Echo and Alexa</p>
+              <br/>
+              <p>Fire TV</p>
+              <br/>
+              <p>Kindel E-Readers & eBooks</p>
+              <br/>
+              <p>Audible Audio Books</p>
+              <br/>
+              <p>Amazon Prime Video</p>
+              <br/>
+              <p>Amazon Prime Music</p>
             </DrawerBody>
           </DrawerContent>
         </Drawer>
