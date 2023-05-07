@@ -55,7 +55,6 @@ export const getCartProducts = (data) => async (dispatch) => {
     const url = `${process.env.REACT_APP_URL}/cart`;
     const res = await getCartProductsApi(url, data);
     if (res) {
-      console.log(res);
       dispatch(getsuccess(res));
     }
   } catch (err) {
@@ -68,7 +67,6 @@ export const postCartProduct = (data) => async (dispatch) => {
     const url = `${process.env.REACT_APP_URL}/cart/add`;
     const res = await postCartProductsApi(url,data);
     if (res) {
-      console.log(res)
       dispatch(postsuccess(res));
     }
   } catch (err) {
@@ -80,8 +78,9 @@ export const patchCartProduct = (id,param) => async (dispatch) => {
   try {
     const url = `${process.env.REACT_APP_URL}/cart/${id}`;
     const res = await patchCartProductsApi(url, param);
+    // console.log("res",res)
     if (res) {
-      dispatch(patchsuccess())
+      dispatch(patchsuccess(res))
       return res.product;
     }
   } catch (err) {
@@ -94,7 +93,7 @@ export const deleteCartProduct = (id,param) => async (dispatch) => {
     const url = `${process.env.REACT_APP_URL}/cart/${id}`;
     const res = await deleteCartProductsApi(url, param);
     if (res) {
-      dispatch(deletesuccess());
+      dispatch(deletesuccess(res));
     }
   } catch (err) {
     dispatch(error());
