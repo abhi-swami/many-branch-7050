@@ -45,7 +45,7 @@ import {
   //     rating: 3.9
   //   }
   
-  function ProductCart({ title, price, image,brand, name,reviews,category, rating, id }) {
+  function ProductCart({title,image,price,category,sub_category,rating ,type,reviews,brand }) {
     return (
         <Box gap={9}>
         <Box
