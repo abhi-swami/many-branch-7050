@@ -7,7 +7,7 @@ import ProductCarousels from './ProductCarousal';
 const Home = () => {
   return (
     <div>
-       <Box>
+       <Box py={{ base: 1, sm: 2, lg: 1 }} >
           {/* <img src='https://images-eu.ssl-images-amazon.com/images/G/31/Events/img23/MayART23/PEA_PC_Hero_30Days_2x_V6._CB589500916_.jpg'/> */}
           <ImageSlider/>
               
@@ -79,7 +79,7 @@ const Home = () => {
 
                             {/* **********************--PRODUCTS--*********************** */}
 
-           <Box  >
+           <Box  id='product'>
            {/* <ProductSlider/> */}
           < ProductCarousels/>
             

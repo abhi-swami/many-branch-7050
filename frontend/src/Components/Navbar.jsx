@@ -153,7 +153,7 @@ export const Navbar = () => {
             <Box id='nav' padding='5px'>Buy Again</Box>
            
      </Box>
-     <Box  height='40px' width='400px' marginLeft='162px'>
+     <Box className='live' height='40px' width='400px' marginLeft='162px'>
      <Image src='https://m.media-amazon.com/images/G/31/Events/img23/MayART23/SWM_400x39_LiveNow._CB590561779_.jpg'/>
      </Box>
 </Box>
