@@ -6,6 +6,7 @@ import Home from "../Pages/Home/Home.jsx";
 import { Dashboard } from "../Pages/Admin/Dashboard.jsx";
 import Addproduct from "../Pages/Admin/Addproduct.jsx";
 import UpdatePro from "../Pages/Admin/UpdatePro.jsx";
+import DeletePro from "../Pages/Admin/DeletePro.jsx";
 
 const AllPages = () => {
   return (
@@ -17,6 +18,7 @@ const AllPages = () => {
         <Route path="/admin" element={<Dashboard/>} />
         <Route path="/admin/addpro" element={<Addproduct />} />
         <Route path="/admin/update" element={<UpdatePro />} />
+        <Route path="/admin/delete" element={<DeletePro />} />
       </Routes>
     </div>
   );

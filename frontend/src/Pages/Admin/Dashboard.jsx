@@ -10,20 +10,20 @@ import { Chart as ChartJS } from "chart.js/auto";
 export const Dashboard = () => {
 
   const [userData, setUserData] = useState({
-    labels: [ "Rings","MangalSutra","EarRings","Necklace","Bangles"],
+    labels: [ "electonics","books","shirts","footwere","sports"],
     datasets: [
       {
         label: "Users Gained",
-        data: [55,94,47,55,67],
+        data: [55,94,88,55,67],
         backgroundColor: [
           "rgba(75,192,192,1)",
-          "#ecf0f1",
-          "#50AF95",
+          "#8db2fd",
+          "#1f4b3a",
           "#f3ba2f",
-          "#2a71d0",
+          "#d44b6e",
         ],
-        borderColor: "black",
-        borderWidth: 2,
+        borderColor: "blue",
+        borderWidth: 3,
       },
     ],
   });  
@@ -54,7 +54,7 @@ export const Dashboard = () => {
     </a>
   </li>
     <li>
-    <a href="/messages">
+    <a href="/admin/delete">
       <span className='icon'><ion-icon name="person-outline"></ion-icon></span>
        <span className='title'>Delete</span>
     </a>

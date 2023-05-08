@@ -4,55 +4,25 @@ import styled from "styled-components"
 import axios from 'axios'
 import { useEffect } from 'react'
 import { useState } from 'react'
-import { Link,Stack,Button } from '@chakra-ui/react';
-import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-} from '@chakra-ui/react';
-import { useDisclosure } from '@chakra-ui/react'
+import { Link } from '@chakra-ui/react'
+import { Button,Stack } from '@chakra-ui/react'
 
-const UpdatePro = () => {
+const DeletePro = () => {
 
-  const [page,setPage] = useState(1)
+    const [page,setPage] = useState(1)
+    const [afterDelete,setAfterDelete] = useState(false)
     const [product,setProduct] = useState([])
-    const { isOpen, onOpen, onClose } = useDisclosure()
 
      useEffect(()=>{
         axios.get(`http://localhost:4500/products/?page=${page}`)
         .then(res => setProduct(res.data.products))
         .catch(err => console.log(err))
-     },[page])
+     },[afterDelete,page])
 
-
-     const handleEdit = (el) => {
-      <>
-      <Button onClick={onOpen}>Open Modal</Button>
-
-      <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Modal Title</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            hi there
-          </ModalBody>
-
-          <ModalFooter>
-            <Button colorScheme='blue' mr={3} onClick={onClose}>
-              Close
-            </Button>
-            <Button variant='ghost'>Secondary Action</Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
-    </>
+     const handleDelete = (id) => {
+        axios.delete(`http://localhost:4500/products/delete/${id}`)
+        setAfterDelete(!afterDelete)
      }
-
 
   return (
     <>
@@ -112,7 +82,7 @@ const UpdatePro = () => {
    </div>
  </div>
  <div style={{marginLeft:"300px"}}>
-  <div style={{width:"60%",margin:"auto",fontSize:'30px'}}>
+  <div style={{margin:"auto",fontSize:'30px'}}>
   <DIV>
       {product.map((el)=>
       <div style={{border:'1px solid blue',borderRadius:'8px',margin:'10px',padding:'10px'}} key={el.id}>
@@ -121,8 +91,8 @@ const UpdatePro = () => {
       <h3 style={{margin:'auto'}}>{el.title.substring(0, 12)}</h3>
        <h3>{el.category}</h3>
        <h2 style={{fontSize:'20px'}}>{el.price}</h2>
-       <button onClick={()=>handleEdit(el)}>
-          <Link to={`/dashboard/edit/${el.id}`}>Edit</Link>
+       <button onClick={()=>handleDelete(el._id)}>
+          <Link to={`/dashboard/edit/${el.id}`}>Delete</Link>
        </button>
       </div>
      
@@ -222,4 +192,4 @@ button{
 `
 
 
-export default UpdatePro
+export default DeletePro;
