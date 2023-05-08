@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Box, Text, Input, Button, Img} from "@chakra-ui/react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import REACTLOGO from "./amaze.png"
-import ToastStatusExample from "../../Components/Toast/Toast";
 
 
 export const Signup = () => {
