@@ -1,27 +1,38 @@
-
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Box, Text, Input, Button,Img } from "@chakra-ui/react";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
-import { Navigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import REACTLOGO from "./amaze.png"
+import { AuthContext } from "../../Context/AuthContext";
 
 export const Login = () => {
+  const {login}=useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const dispatch = useDispatch();
-  const { isAuth } = useSelector((store) => store.authReducer);
+  const [status,setStatus]=useState("")
 
 
   const handleSubmit = () => {
-    // dispatch(login(email, password));
+    const payload={email,password};
+    // console.log(payload)
+    fetch("http://localhost:4500/login",{
+      method:"POST",
+      headers:{"content-type":"application/json"},
+      body: JSON.stringify(payload)
+    })
+    .then((res)=>res.json())
+    .then((data)=>{
+      // console.log(data)
+      setStatus(data.message)
+      login(data.token)
+      localStorage.setItem("token",data.token)
+      setEmail("")
+      setPassword("")
+    })
+    .catch((err)=>console.log(err))
   };
-  if (isAuth) {
-  //  return <Navigate to={"/"}  />;
-  }
-  console.log(isAuth);
-  // eve.holt@reqres.in
-  // cityslicka
+  
   return (
     <>
       {/* <DarkModeButton /> */}
@@ -110,21 +121,13 @@ export const Login = () => {
               // paddingTop="20px"
             >
               
-            Create your Amaze account? <Button color={"blue"} fontSize={"13px"} variant={"link"} >Sign up</Button>
+            Create your Amaze account?
+            <Link to={"/signup"} >
+             <Button color={"blue"} fontSize={"13px"} variant={"link"} >Sign up</Button>
+            </Link>
             </Text>
-            {/* <Button
-              mt="5px"
-              border={"0px"}
-              background="white"
-              borderRadius="3px"
-              height={"40px"}
-              boxShadow="rgba(0, 0, 0, 0.24) 0px 3px 8px"
-              width="270px"
-            >
-              Google
-            </Button> */}
+            {status&&<h3>{status}</h3>}
           </Box>
-
         </Box>
       </Box>
     </>
