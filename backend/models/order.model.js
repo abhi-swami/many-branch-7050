@@ -11,14 +11,13 @@ const orderSchema = new Schema(
     rating: { type: Number, default: 0 },
     reviews: { type: Number, default: 0 },
     brand: { type: String },
-    userID:String,
-    quantity:Number,
+    userID: String,
+    quantity: Number,
   },
   { versionKey: false }
 );
 
-// const OrderModel = model("order", orderSchema);
-const OrderModel = model("product", orderSchema);
-
+const OrderModel = model("order", orderSchema);
+// const OrderModel = model("product", orderSchema);
 
 module.exports = { OrderModel };
