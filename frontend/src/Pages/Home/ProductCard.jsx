@@ -35,19 +35,13 @@ import {
     numReviews: 34,
   };
 
-  // const pro={
-  //     id: 23,
-  //     title: "PATHAAN SHIRT MANS",
-  //     price: 401,
-  //     description: "Name : trendy printed shirt for men Fabric : Lycr Sleeve Length : Short Sleeves",
-  //     category: "men's clothing",
-  //     image: "https://images.meesho.com/images/products/209786534/bc2mn_512.webp",
-  //     rating: 3.9
-  //   }
+ 
   
-  function ProductCart({title,image,price,category,sub_category,rating ,type,reviews,brand }) {
+  function ProductCart({title,image,price,category,sub_category,rating ,type,reviews,brand,_id }) {
     return (
+      
         <Box gap={9}>
+          <Link to={`/product/${_id}`}>
         <Box
           bg={useColorModeValue("gray.100", "gray.800")}
      
@@ -73,20 +67,7 @@ import {
               <Text as={"span"} color={"rgb(255,164,28)"}> Seller</Text>
             </Text>
           ) : null}
-          {/* <Text
-            position="absolute"
-            top={1}
-            left={280}
-            p={"3px"}
-            bg={"white"}
-            color={"rgb(200,200,200)"}
-            _hover={{ color: "rgb(40,116,240)", cursor: "pointer" }}
-            fontSize={"15px"}
-            borderRadius={"sm"}
-            onClick={handleheart}
-          >
-            <BsSuitHeartFill />
-          </Text> */}
+        
   
           <Image
             src={image}
@@ -143,7 +124,7 @@ import {
                 fontWeight={"medium"}
                 color={"rgb(0,113,133)"}
               >
-                {/* {reviewsString} */}
+                {reviews}
               </Text>
             </HStack>
   
@@ -174,6 +155,7 @@ import {
             </Text>
           </Box>
         </Box>
+        </Link>
       </Box>
       
     );
