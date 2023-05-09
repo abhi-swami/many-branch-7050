@@ -4,6 +4,7 @@ import {
     CART_POST_SUCCESS,
     CART_PATCH_SUCCESS,
     CART_DELETE_SUCCESS,
+    CART_FULL_EMPTY,
     CART_ERROR,
 } from "./cart.actionType";
 
@@ -45,31 +46,37 @@ export const cartReducer = (state = initial, action) => {
     }
     case CART_PATCH_SUCCESS:{
         const arr=state.data.map((el)=>el._id===payload.data._id?{...el,...payload.data}:el)
+
         return {
             ...state,
             isLoading: false,
-            isError: true,
+            isError: false,
             data:[...arr]
         };
     }
     case CART_DELETE_SUCCESS:{
-        console.log("payload",payload)
         const data=state.data
-        console.log("data",data)
         const arr=data.filter((el)=>el._id!==payload.data._id)
-        console.log("arr",arr)
         return {
             ...state,
             isLoading: false,
-            isError: true,
+            isError: false,
             data:[...arr]
+        };
+    }
+    case CART_FULL_EMPTY:{
+        return {
+            ...state,
+            isLoading: false,
+            isError: false,
+            data:[]
         };
     }
     case CART_ERROR:{
         return{
             ...state,
             isLoading:false,
-            isError:false,
+            isError:true,
         }
     }
     default:

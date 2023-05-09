@@ -45,7 +45,7 @@ const SingleProduct = () => {
   } = useSelector((store) => store?.searchReducer?.singleProduct);
   localStorage.setItem(
     "token",
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2NDU2YWMwMTdjY2I2NGVmZmNmZDQ2NjQiLCJpYXQiOjE2ODM0NDUwNjcsImV4cCI6MTY4MzQ4ODI2N30.XdyoYPn86t0cfQo4Orwa2NKiWrCk4aosf6EHcH1UwaE"
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2NDU2YWMwMTdjY2I2NGVmZmNmZDQ2NjQiLCJpYXQiOjE2ODM0ODg1NTYsImV4cCI6MTY4MzUzMTc1Nn0.1GY3li1L8jahGQ48INfG3i533XPa5tmI3m9DG3TQtrI"
   );
   const [data, setData] = useState([]);
   const [star, setStar] = useState([]);

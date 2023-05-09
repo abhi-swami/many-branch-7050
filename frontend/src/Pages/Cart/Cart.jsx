@@ -7,7 +7,7 @@ import CartItems from "../../Components/Cart/CartItems.jsx";
 import "../../CSS/Cart.css";
 import {
   getCartProducts,
-  deleteCartProduct,
+  deleteCartProduct,deleteAllCartProduct
 } from "../../Redux/Cart/cart.action.js";
 import Address from "../../Components/Cart/Address.jsx"
 
@@ -18,7 +18,8 @@ const Cart = () => {
   const dispatch = useDispatch();
   const Razorpay = useRazorpay()
   const navigate = useNavigate();
-  const [userAddress,setUserAddress]=useState()
+  const [userAddress,setUserAddress]=useState();
+  const [order,setOrder]=useState([]);
 
   // variable data such as price,quantity,discount etc.
   let totalQuantity = data
@@ -42,10 +43,10 @@ const Cart = () => {
       dispatch(getCartProducts());
     }
   }, []);
-  const handleSubmit=(obj)=>{
+  const handleSubmit=(obj,arr)=>{
     setUserAddress({...obj})
     onClose()
-    handlePayment(TotalOriginalPrice)
+    handlePayment(TotalOriginalPrice,arr)
   }
   const handleRemove = (id) => {
     dispatch(deleteCartProduct(id)).then(() =>
@@ -59,8 +60,8 @@ const Cart = () => {
     );
   };
   const handlePayment = useCallback(
-    async (totalAmount) => {
-      console.log(totalAmount)
+    async (totalAmount,arr) => {
+      console.log(arr)
       const options = {
         key: 'rzp_test_Q6qLBPFz8pzc23',
         amount: Number(totalAmount*100),
@@ -72,7 +73,9 @@ const Cart = () => {
         
         handler:  (response)=> {
           console.log("res",response)
+          // dispatch(deleteAllCartProduct(arr[0].userID))
           navigate("/")
+
          
         },
         prefill: {
@@ -91,8 +94,6 @@ const Cart = () => {
     },
     [Razorpay]
   )
-
-  console.log("data", data);
   return (
     <div className="cart__container__main">
       <div className="cart__container__product">
@@ -138,7 +139,7 @@ const Cart = () => {
           </div>
         </div>
       </div>
-      {isOpen && <Address isOpen={isOpen} onOpen={onOpen} onClose={onClose}  handleSubmit={handleSubmit}/>}
+      {isOpen && <Address isOpen={isOpen} onOpen={onOpen} onClose={onClose}  handleSubmit={handleSubmit} data={data}/>}
     </div>
   );
 };

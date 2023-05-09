@@ -4,6 +4,7 @@ import {
   CART_POST_SUCCESS,
   CART_PATCH_SUCCESS,
   CART_DELETE_SUCCESS,
+  CART_FULL_EMPTY,
   CART_ERROR,
 } from "../Cart/cart.actionType.js";
 import {
@@ -40,6 +41,11 @@ const deletesuccess = (data) => {
   return {
     type: CART_DELETE_SUCCESS,
     payload: data,
+  };
+};
+const deleteall = () => {
+  return {
+    type: CART_FULL_EMPTY,
   };
 };
 
@@ -94,6 +100,18 @@ export const deleteCartProduct = (id,param) => async (dispatch) => {
     const res = await deleteCartProductsApi(url, param);
     if (res) {
       dispatch(deletesuccess(res));
+    }
+  } catch (err) {
+    dispatch(error());
+  }
+};
+export const deleteAllCartProduct = (id,param) => async (dispatch) => {
+  dispatch(request());
+  try {
+    const url = `${process.env.REACT_APP_URL}/cart/emptycart/${id}`;
+    const res = await deleteCartProductsApi(url, param);
+    if (res) {
+      dispatch(deleteall());
     }
   } catch (err) {
     dispatch(error());
