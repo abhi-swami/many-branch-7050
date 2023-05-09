@@ -32,17 +32,25 @@ const obj={
 
 }
 
-export default function Address({ isOpen, onOpen, onClose ,handleSubmit}) {
+export default function Address({ isOpen, onOpen, onClose ,handleSubmit,data}) {
   const [userAddress,setUserAddress]=useState(obj);
-
   const handleFormChange=(e)=>{
     const {name,value}=e.target;
     const val= name==="phone"?+value:name==="postal_code"?+value:value
     setUserAddress({...userAddress,[name]:val})
   }
   const handleClick=()=>{
-    handleSubmit(userAddress)
-
+    let arr=[]
+    for(let obj of data){
+      let object={}
+      for(let i in obj){
+        if(i!=="_id"){
+          object[i]=obj[i]
+        }
+      }
+      arr.push(object)
+    }
+    handleSubmit(userAddress,arr)
   }
 
 
