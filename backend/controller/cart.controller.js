@@ -75,4 +75,13 @@ const deleteCartProduct = async (req, res) => {
       res.status(400).send({ error: error.message});
     }
   }
-module.exports = { postCartProduct, getCartProduct, patchCartProduct,deleteCartProduct };
+const emptyTheCart = async (req, res) => {
+    const { id } = req.params;
+    try {
+      const data = await CartModel.deleteMany({userID:id});
+      res.status(200).send({ mesg: `Deleted the post successfully`});
+    } catch (error) {
+      res.status(400).send({ error: error.message});
+    }
+  }
+module.exports = { postCartProduct, getCartProduct, patchCartProduct,deleteCartProduct,emptyTheCart };
