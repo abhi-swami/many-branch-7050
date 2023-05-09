@@ -16,7 +16,7 @@ export const Signup = () => {
     const payload={name,mobile,email,password};
     // console.log(payload)
 
-    fetch("http://localhost:4500/signup",{
+    fetch("https://calm-red-iguana-hose.cyclic.app/signup",{
       method:"POST",
       headers:{"content-type":"application/json"},
       body: JSON.stringify(payload)
