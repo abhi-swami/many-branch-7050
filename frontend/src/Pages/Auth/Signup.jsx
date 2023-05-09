@@ -1,28 +1,40 @@
-
 import React, { useState } from "react";
-import { Box, Text, Input, Button, Img } from "@chakra-ui/react";
-import axios from "axios";
-import { useSelector, useDispatch } from "react-redux";
-import { Navigate } from "react-router-dom";
+import { Box, Text, Input, Button, Img} from "@chakra-ui/react";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import REACTLOGO from "./amaze.png"
 
 
 export const Signup = () => {
+  const [name, setName] = useState("");
+  const [mobile, setMobile] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const dispatch = useDispatch();
-  const { isAuth } = useSelector((store) => store.authReducer);
-
+  const [status,setStatus]=useState(false)
+  const navigate=useNavigate()
 
   const handleSubmit = () => {
-    // dispatch(login(email, password));
+    const payload={name,mobile,email,password};
+    // console.log(payload)
+
+    fetch("http://localhost:4500/signup",{
+      method:"POST",
+      headers:{"content-type":"application/json"},
+      body: JSON.stringify(payload)
+    })
+    .then((res)=>res.json())
+    .then((data)=>{
+      console.log(data)
+      setStatus(data.message)
+      
+      setName("")
+      setMobile("")
+      setEmail("")
+      setPassword("")
+      // navigate("/login")
+    })
+    .catch((err)=>console.log(err))
   };
-  if (isAuth) {
-  //  return <Navigate to={"/"}  />;
-  }
-  console.log(isAuth);
-  // eve.holt@reqres.in
-  // cityslicka
+
   return (
     <>
       {/* <DarkModeButton /> */}
@@ -51,9 +63,9 @@ export const Signup = () => {
           <Text fontWeight={500} ml={"25px"} textAlign="left">Your name</Text>
           <Input
           
-            value={email}
+            value={name}
             onChange={(e) => {
-              setEmail(e.target.value);
+              setName(e.target.value);
             }}
             mt="5px"
             borderRadius="4px"
@@ -65,10 +77,10 @@ export const Signup = () => {
           ></Input>
           <Text fontWeight={500} ml={"25px"} mt={"10px"} textAlign="left">Mobile number</Text>
           <Input
-          
-            value={password}
+            type="number"
+            value={mobile}
             onChange={(e) => {
-              setPassword(e.target.value);
+              setMobile(e.target.value);
             }}
             borderRadius="4px"
             mt={"5px"}
@@ -81,9 +93,9 @@ export const Signup = () => {
           <Text fontWeight={500} ml={"25px"} mt={"10px"} textAlign="left">Email</Text>
           <Input
           
-            value={password}
+            value={email}
             onChange={(e) => {
-              setPassword(e.target.value);
+              setEmail(e.target.value);
             }}
             borderRadius="4px"
             mt={"5px"}
@@ -145,7 +157,10 @@ export const Signup = () => {
               // paddingTop="20px"
             >
               
-            Already have an account? <Button color={"blue"} fontSize={"13px"} variant={"link"} >Sign in</Button>
+            Already have an account?
+            <Link to="/login">
+             <Button color={"blue"} fontSize={"13px"} variant={"link"} >Sign in</Button>
+            </Link>
             </Text>
             <Text
               margin={"auto"}
@@ -159,20 +174,11 @@ export const Signup = () => {
             >
               By creating an account or logging in, you agree to Amazon's Conditions of Use and Privacy Policy.
             </Text>
-            {/* <Button
-              mt="5px"
-              border={"0px"}
-              background="white"
-              borderRadius="3px"
-              height={"40px"}
-              boxShadow="rgba(0, 0, 0, 0.24) 0px 3px 8px"
-              width="270px"
-            >
-              Google
-            </Button> */}
+            {status&&<h3>{status}</h3>}
           </Box>
 
         </Box>
+        
       </Box>
     </>
   );

@@ -1,8 +1,32 @@
 import "./dashboard.css"
 import styled from "styled-components"
+import { Box, Button, Heading, SimpleGrid, Text } from "@chakra-ui/react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { Bar, Line, Pie } from "react-chartjs-2";
+import { Chart as ChartJS } from "chart.js/auto";
 
 
 export const Dashboard = () => {
+
+  const [userData, setUserData] = useState({
+    labels: [ "electonics","books","shirts","footwere","sports"],
+    datasets: [
+      {
+        label: "Users Gained",
+        data: [55,94,88,55,67],
+        backgroundColor: [
+          "rgba(75,192,192,1)",
+          "#8db2fd",
+          "#1f4b3a",
+          "#f3ba2f",
+          "#d44b6e",
+        ],
+        borderColor: "blue",
+        borderWidth: 3,
+      },
+    ],
+  });  
 
 
   return (
@@ -12,27 +36,27 @@ export const Dashboard = () => {
       <div className='navigation' >
 <ul>
   <li>
-    <a href="#">
+    <a href="/">
       <span className='icon'></span>
        <span className='title'>Amaze</span>
     </a>
   </li>
     <li>
-    <a href="/dashboard">
+    <a href="/admin/addpro">
       <span className='icon'><ion-icon name="home-outline"></ion-icon></span>
-       <span className='title'>Add Product</span>
+       <span className='title'>Add</span>
     </a>
   </li>
     <li>
-    <a href="/customers">
+    <a href="/admin/update">
       <span className='icon'><ion-icon name="person-outline"></ion-icon></span>
-       <span className='title'>Customers</span>
+       <span className='title'>Update</span>
     </a>
   </li>
     <li>
-    <a href="/messages">
+    <a href="/admin/delete">
       <span className='icon'><ion-icon name="person-outline"></ion-icon></span>
-       <span className='title'>Messages</span>
+       <span className='title'>Delete</span>
     </a>
   </li>
     <li>
@@ -62,21 +86,24 @@ export const Dashboard = () => {
 </ul>
       </div>
     </div>
-    <h1 style={{marginLeft:"250px"}}>Newly Added Products</h1>
-    <DIV>
-      {/* {AdminProduct.map((el)=>
-      <div key={el.id}>
-       <img src={el.defaultImages} alt={el.title} />
-       <h3>{el.title}</h3>
-       <h3>{el.category}</h3>
-       <h2>{el.price}</h2>
-       <button>
-          <Link to={`/dashboard/edit/${el.id}`}>Edit Products</Link>
-       </button>
-     
+    <div style={{marginLeft:"300px"}}>
+     <div style={{width:"60%",margin:"auto",fontSize:'30px'}}>
+     <Box > 
+         <Box  >
+            <Bar  data ={userData}/>     
+         </Box>
+         <Box >
+         <Pie data={userData} />    
+         </Box>
+         <Box >
+           <Line data={userData} /> 
+         </Box>      
+      </Box>
+
+
       </div>
-      )} */}
-    </DIV>
+      </div>
+    
    </>
   )
 }

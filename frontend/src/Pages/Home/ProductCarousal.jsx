@@ -13,6 +13,7 @@ import axios from 'axios'
 
 import Slider from "react-slick";
 import ProductCart from "./ProductCard";
+
 const settings = {
   dots: true,
   infinite: true,
@@ -78,19 +79,18 @@ let arr=[{
   brand:'mi'
 }]
 
-    // const getData=(()=>{
-    //     axios.get(`${process.env.REACT_APP_URL}/products`)
-    //       .then((res)=>{
-    //         console.log('res',res.data)
-    //       })
+    const getData=(()=>{
+      const url = `${process.env.REACT_APP_URL}/products`;
+        axios.get(url)
+          .then((res)=>{
+            console.log('res',res.data)
+          })
         
-    // })
+    })
        
-    // useEffect(()=>{
-    //      getData()
-
-         
-    // },[])
+    useEffect(()=>{
+         getData()   
+    },[])
   
     return (
       <Box border={'.5px solid gray'} backgroundColor={'white'} height={'360px'} width={'98%'} marginLeft={'12px'} marginBottom={'15px'} borderRadius={'5px'}>

@@ -17,6 +17,8 @@ const orderSchema = new Schema(
   { versionKey: false }
 );
 
-const OrderModel = model("order", orderSchema);
+// const OrderModel = model("order", orderSchema);
+const OrderModel = model("product", orderSchema);
+
 
 module.exports = { OrderModel };
