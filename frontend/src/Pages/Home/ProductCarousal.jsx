@@ -34,56 +34,17 @@ const settings = {
     const left1 = useBreakpointValue({ base: "0px", md: "0%" });
     const left2 = useBreakpointValue({ base: "0px", md: "0%" });
 
-let arr=[{
-  image:"https://images-eu.ssl-images-amazon.com/images/G/31/img22/Fashion/Gateway/BAU/BTF-Refresh/May/PF_MF/MF-3-372-232._SY232_CB636110853_.jpg",
-  name:'mobile',
-  brand:'mi'
-},{
-  image:"https://images-eu.ssl-images-amazon.com/images/G/31/img22/Fashion/Gateway/BAU/BTF-Refresh/May/PF_MF/MF-3-372-232._SY232_CB636110853_.jpg",
-  name:'phone',
-  brand:'mi'
-},{
-  image:"https://images-eu.ssl-images-amazon.com/images/G/31/img22/Fashion/Gateway/BAU/BTF-Refresh/May/PF_MF/MF-3-372-232._SY232_CB636110853_.jpg",
-  name:'samsung',
-  brand:'mi'
-},
-{
-  image:"https://images-eu.ssl-images-amazon.com/images/G/31/img22/Fashion/Gateway/BAU/BTF-Refresh/May/PF_MF/MF-3-372-232._SY232_CB636110853_.jpg",
-  name:'samsung',
-  brand:'mi'
-},{
-  image:"https://images-eu.ssl-images-amazon.com/images/G/31/img22/Fashion/Gateway/BAU/BTF-Refresh/May/PF_MF/MF-3-372-232._SY232_CB636110853_.jpg",
-  name:'samsung',
-  brand:'mi'
-},
-{
-  image:"https://images-eu.ssl-images-amazon.com/images/G/31/img22/Fashion/Gateway/BAU/BTF-Refresh/May/PF_MF/MF-3-372-232._SY232_CB636110853_.jpg",
-  name:'mobile',
-  brand:'mi'
-},{
-  image:"https://images-eu.ssl-images-amazon.com/images/G/31/img22/Fashion/Gateway/BAU/BTF-Refresh/May/PF_MF/MF-3-372-232._SY232_CB636110853_.jpg",
-  name:'phone',
-  brand:'mi'
-},{
-  image:"https://images-eu.ssl-images-amazon.com/images/G/31/img22/Fashion/Gateway/BAU/BTF-Refresh/May/PF_MF/MF-3-372-232._SY232_CB636110853_.jpg",
-  name:'samsung',
-  brand:'mi'
-},
-{
-  image:"https://images-eu.ssl-images-amazon.com/images/G/31/img22/Fashion/Gateway/BAU/BTF-Refresh/May/PF_MF/MF-3-372-232._SY232_CB636110853_.jpg",
-  name:'samsung',
-  brand:'mi'
-},{
-  image:"https://images-eu.ssl-images-amazon.com/images/G/31/img22/Fashion/Gateway/BAU/BTF-Refresh/May/PF_MF/MF-3-372-232._SY232_CB636110853_.jpg",
-  name:'samsung',
-  brand:'mi'
-}]
+
 
     const getData=(()=>{
       const url = `${process.env.REACT_APP_URL}/products`;
         axios.get(url)
           .then((res)=>{
-            console.log('res',res.data)
+            console.log('res',res.data.products)
+            setProduct(res.data.products)
+          })
+          .catch((err)=>{
+            console.log(err)
           })
         
     })
@@ -97,11 +58,9 @@ let arr=[{
       {/* <h2> Multiple items </h2> */}
       <Slider {...settings}>
 
-        {arr?.map((ele)=>
+        {product?.map((ele)=>
          <Box  height={'350px'} padding={'10px'} >
-          {/* <img  height='50px'src={ele.image}/>
-         <h3>{ele.name}</h3>
-         <h3>{ele.brand}</h3> */}
+         
          <ProductCart {...ele}/>
        </Box>
         )}
