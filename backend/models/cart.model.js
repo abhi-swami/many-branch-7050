@@ -17,6 +17,7 @@ const cartSchema = new Schema(
   { versionKey: false }
 );
 
+
 const CartModel = model("cart", cartSchema);
 
 module.exports = { CartModel };
