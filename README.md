@@ -1,6 +1,6 @@
 <h1 align="center">Welcome to Amazon-clone</h1>
 
-<h3 align="center">Project Unique Name :  </h3>
+<h3 align="center">Project Unique Name : Amaze </h3>
 
 <br/>
 <h3 align="justify" width="80%">Amazon is a popular online shopping website that offers a vast selection of products, from books and electronics to clothing and home goods. The website provides a simple and user-friendly interface for customers to browse and purchase items, with features such as product reviews, personalized recommendations, and fast shipping options.</h3>
